@@ -1,2 +1,18 @@
-# js-text-editor
-A JavaScript &amp; HTML Text Editing Software Project that has Regular Expression Search, Random String Generation Algorithms, and GUI!
+# js-text-editor - My Frontend Project
+
+This project is a text editing software **built in JavaScript** & **presented through a HTML Page**, that has:
+
+- 🔎 **Advanced and Normal** searching algorithms (RegEx & Normal Text parameters accepted)
+- 📊 **A random string generation** algorithm
+- 📝 Abilities **to alter text** (Add, Delete, Replace, and Flip Text!)
+- 🎨 **Graphical User Interface** (GUI) from **HTML Code**
+
+## How to run this Project?
+
+To run this frontend project, download the folder in the project's repo, and simply **drag and drop it** into your browser.
+
+### Alternatives
+
+You can also:
+
+- Open this in some Code Editors such as **VSCode** and **OneComplier**
