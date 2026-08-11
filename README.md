@@ -3,8 +3,11 @@
 This project is a text editing software **built in JavaScript** & **presented through a HTML Page**, that has:
 
 - 🔎 **Advanced and Normal** searching algorithms (RegEx & Normal Text parameters accepted)
+  
 - 📊 **A random string generation** algorithm
-- 📝 Abilities **to alter text** (Add, Delete, Replace, and Flip Text!)
+  
+- 📝 **Text Altering** software (Add, Delete, Replace, and Flip Text!)
+  
 - 🎨 **Graphical User Interface** (GUI) from **HTML Code**
 
 ## How to run this Project?
