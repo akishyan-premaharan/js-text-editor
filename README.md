@@ -14,8 +14,16 @@ This project is a text editing software **built in JavaScript** & **presented th
 
 To run this frontend project, download the folder in the project's repo, and simply **drag and drop it** into your browser.
 
-### Alternatives
-
 You can also:
 
-- Open this in some Code Editors such as **VSCode** and **OneComplier**
+- Open this in **IDEs** such as **VSCode** and **OneComplier**
+
+## Tech Used
+
+|Name|Usage|
+|----|-----|
+|![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)|The language which **powers** the **text editing engine**|
+|![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)|The language used for the graphical interface
+|![Google Chrome](https://img.shields.io/badge/Google%20Chrome-%234285F4.svg?style=for-the-badge&logo=Google%20Chrome&logoColor=white)|The browser the code was running on during production
+|![VSCode](https://img.shields.io/badge/VSCode-0E2BAD.svg?style=for-the-badge&logo=visual-studio-code&logoColor=white)|The IDE used to write & test the code|
+
