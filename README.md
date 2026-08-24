@@ -2,7 +2,7 @@
 
 This project is a text editing software **built in JavaScript** & **presented through a HTML Page**, that has:
 
-- 🔎 **Advanced and Normal** searching algorithms (RegEx & Normal Text parameters accepted)
+- 🔎 **RegEx and Normal** searching algorithms
   
 - 📊 **A random string generation** algorithm
   
