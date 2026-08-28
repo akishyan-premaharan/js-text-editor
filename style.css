@@ -1,0 +1,246 @@
+
+
+
+body {
+
+    margin: 0;
+
+    font-family: Arial, sans-serif;
+
+}
+
+main {
+    
+    background-color: #f0f3f9;
+
+}
+
+
+/* Text input */
+
+.text-title {
+
+    width: 160px;
+
+    height: 36px;
+
+    box-sizing: border-box;
+
+    padding: 6px 8px;
+
+    color: #202124;
+
+    background: transparent;
+
+    border: 1px solid transparent;
+
+    border-radius: 4px;
+
+    font: 500 100px;
+
+    outline: none;
+
+}
+
+.text-title:hover {
+
+    border-color: #dadce0;
+
+}
+
+.text-title:focus {
+
+    background: #ffffff;
+
+    border-color: #6f94d9;
+
+}
+
+/* Navigation bar */
+
+.navbar {
+
+    background-color: #f0f3f9;
+
+    height: 50px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    padding: 0 25px;
+    
+}
+
+.navbar .github {
+
+    width: 100px;
+
+    height: 110px;
+
+    display: block;
+
+    object-fit: contain;
+
+    margin-right: 480px;
+
+}
+
+.navbar select {
+
+    margin-left: 0.1px;
+
+    width: 90px;
+
+    height: 29px;
+
+    font-size: 18px;
+
+    color: aliceblue;
+
+    text-align: center;
+
+    background: #1a73e8;
+
+    border: 1px solid transparent;
+
+    border-radius: 4px;
+
+
+}
+/* Dropdown 1 Menu */
+
+.dropdown1 {
+
+    background-color: #1a73e8;
+
+    height: 50px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    padding: 0 25px;
+
+}
+
+.dropdown1 button {
+
+    width: 160px;
+
+    height: 36px;
+
+    box-sizing: border-box;
+
+    padding: 0px 20px;
+
+    color: aliceblue;
+
+    background: transparent;
+
+    border: 1px solid transparent;
+
+    border-radius: 4px;
+
+    font: 0 30px;
+
+    outline: none;
+
+}
+
+.dropdown1 .random-bt-content {
+
+    background: #ffffff;
+
+    display: none;
+    gap: 8px;
+    padding: 10px;
+    position: absolute;
+    top: 36px;
+    left: 0;
+
+    z-index: 1;
+
+}
+
+.random-menu {
+
+    position: relative;
+
+}
+
+.random-bt-content input {
+
+    border: 2px solid aliceblue;
+
+}
+
+.random-menu:hover .random-bt-content {
+
+    font-size: 13px;
+
+    margin-left: 55px;
+
+    box-shadow: 1px 1px 5px #e0e6f1;
+
+    display: flex;
+
+    flex-direction: column;
+
+}
+
+.random-bt-content input:focus {
+
+    border-color: #6f94d9;
+
+    outline: none;
+
+}
+
+/* Dropdown 2 */
+
+/* User text */
+
+.iotext {
+ 
+    border: 2px solid aliceblue;
+
+    display: block;
+
+    width: 80%;
+    
+    font-family: Arial, sans-serif; 
+
+    min-height: 500px;
+
+    margin: 0 auto;
+
+    padding: 12px white;
+
+    box-sizing: border-box;
+
+}
+
+.iotext:focus {
+
+    border-color: #1a73e8 !important;
+
+    outline: none !important;
+
+}
+
+footer {
+
+    font-family: Archivo, sans-serif;
+
+    margin-left: 15px;
+
+    background-color: #1a73e8;
+
+    color: white;
+
+}

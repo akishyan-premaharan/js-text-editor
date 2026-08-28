@@ -1,0 +1,100 @@
+<!DOCTYPE html> 
+
+<html lang = "en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>New Text</title>
+        <link rel="stylesheet" href="style.css">
+        <script src="script.js" defer></script>
+    </head>
+
+    <body>
+
+        <header>
+
+            <div class = "navbar">
+
+                <input type = "text" placeholder = "Unnamed Text" class = "text-title">
+                 
+                <a href = "https://github.com/akishyan-premaharan" title = "Follow Me on Github!" target = "_blank">
+
+                   <img src = "githublogo.png" alt = "Github logo" title = "Follow Me on Github!" class = "github">
+
+                </a>
+
+                <select id = "save" class = "save-format">
+
+                    <option selected disabled>Save</option>
+
+                    <option value = "txt">.txt (Plain Text)</option>
+
+                    <option value = "rtf">.rtf (Rich Text Format)</option>
+
+                </select>
+
+                <select class = "versions">
+
+                    <option selected disabled>History</option>
+
+                    <option> Not built in yet sorry!</option>
+
+
+                </select>
+
+            </div>
+
+            <div class = "dropdown1">
+
+                <button class = "erase"> Erase All </button>
+
+                <button class = "flip"> Flip </button>
+
+                <div class="random-menu">
+                    <button class="random"> Random </button>
+
+                    <div class="random-bt-content">
+
+                        <label for "random-length">Length of Random Text</label>
+
+                        <input type="number" class="random-length" min="0" value="1" title = "Choose the randomly generated text's length">
+
+                        <label for "random-length">How Random? (Ex: 100 for 1/100)</label>
+
+                        <input type="number" class="randomness" min="0" value="1" title = "Choose how random the text will be (Ex: 100 for 1 out of 100)">
+
+                        <label for "entropy">Entropy (For advanced)</label>
+
+                        <input type="number" class="entropy" min="0" placeholder = "80 bits" title = "Choose how random the text will be (Ex: 100 for 1 out of 100)">
+
+                        <button id = "run-random" style = "background-color: #1a73e8; cursor: pointer;"> Run </button>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <br>
+             
+            <div class = "dropdown2">
+
+        </header>
+        <main>
+           
+            <textarea rows="120" cols="100" placeholder = "Insert text..." class = "iotext"></textarea>
+       
+        </main>
+        <footer>
+
+            <div class = "finaltext">
+               
+                <p> A text editing software programmed by Akishyan Premaharan : ) </p>
+
+            </div>
+
+
+        </footer>
+    </body>
+
+</html>
