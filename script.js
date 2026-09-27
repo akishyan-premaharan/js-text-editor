@@ -1,22 +1,41 @@
+
+
 // Widget set up
 
-let textArea = document.querySelector(".iotext")
+let textArea = document.querySelector("#iotext")
+
+const titleInput = document.querySelector("#text-title")
+const pageTitle = document.querySelector("#title")
+
+let title = pageTitle.textContent.trim() || "New Text"
+
+function updatePageTitle() {
+
+   title = titleInput.value.trim() || "New Text"
+   pageTitle.textContent = title
+   document.title = title
+
+}
 
 // RANDOM WIDGET VARIABLE set up
 
-const randomTextLength = document.querySelector(".random-length")
+const randomTextLength = document.querySelector("#random-length")
 
-const randomness = document.querySelector(".randomness")
+const randomness = document.querySelector("#randomness")
 
 let isUsingEntropy = false
 
-const userEntropy = document.querySelector(".entropy")
+const userEntropy = document.querySelector("#entropy")
 
 const runRandom = document.querySelector("#run-random")
 
-// Event listeners
+// Widget Event listeners
 
-document.querySelector(".erase").addEventListener("click", function() {
+titleInput.addEventListener("input", updatePageTitle)
+
+updatePageTitle()
+
+document.querySelector("#erase").addEventListener("click", function() {
 
    const cleanedText = textArea.value.replace(/\s/g, "")  
    // clean text by removing all whitespaces so if someone spams around 1000 spaces, it won't warn you.
@@ -39,7 +58,7 @@ document.querySelector(".erase").addEventListener("click", function() {
 
 })
 
-document.querySelector(".flip").addEventListener("click", function() {
+document.querySelector("#flip").addEventListener("click", function() {
 
    textArea.value = textArea.value.split("").reverse().join("")
 
@@ -47,7 +66,7 @@ document.querySelector(".flip").addEventListener("click", function() {
 
 randomness.addEventListener("input", function() {
 
-   entropy.textContent = ""
+   userEntropy.textContent = ""
 
    isUsingEntropy = false
 
@@ -110,7 +129,11 @@ runRandom.addEventListener("click", function() {
 
       charPool = charPool * (1/Number(randomTextLength.value))
 
-      randomGeneratedText += String.fromCharCode(Math.floor(Math.random() * charPool))
+      for (let i = 0; i < randomTextLength.value; i++) {
+
+         randomGeneratedText += String.fromCharCode(Math.floor(Math.random() * charPool))
+
+      }
 
       textArea.value += randomGeneratedText
       
@@ -122,7 +145,72 @@ runRandom.addEventListener("click", function() {
 
    }
 
+})
 
+//  Word Counter
+
+let wordCount = document.querySelector("#word-count")
+
+let text = textArea.value.trim()
+
+textArea.addEventListener("input", function() {
+
+   text = textArea.value.trim()
+
+   if (!/\b\w+\b/u.test(text)) {
+      
+      wordCount.textContent = "0 Words"
+
+   } else {
+
+      wordCount.textContent = `${text.match(/\b\w+\b/gu).length} Words`
+
+   }
 
 })
 
+// Key Event Listeners
+
+textArea.addEventListener("keydown", (e) => {
+
+  const ctrlBracketIndent = (e.key === "]" || e.key === "}") && (e.metaKey || e.ctrlKey)
+
+  if (e.key === "Tab" || ctrlBracketIndent) {
+   
+    e.preventDefault()
+
+    const indentation = "    "
+    textArea.value =
+      textArea.value.substring(0, textArea.selectionStart) +
+      indentation +
+      textArea.value.substring(textArea.selectionEnd)
+
+    textArea.selectionStart =
+      textArea.selectionEnd =
+      textArea.selectionStart + indentation.length
+
+  }
+
+  if ((e.key === "[" || e.key === "{") && (e.metaKey || e.ctrlKey)) {
+
+    e.preventDefault()
+
+    const start = textArea.selectionStart
+    const end = textArea.selectionEnd
+    const lineStart = textArea.value.lastIndexOf("\n", start - 1) + 1
+    const currentLine = textArea.value.slice(lineStart, start)
+
+    if (currentLine.startsWith("    ")) {
+      const indentation = "    "
+
+      textArea.value =
+        textArea.value.slice(0, lineStart) +
+        currentLine.slice(indentation.length) +
+        textArea.value.slice(start)
+
+      textArea.selectionStart = Math.max(start - indentation.length, lineStart)
+      textArea.selectionEnd = Math.max(end - indentation.length, lineStart)
+    }
+
+  }
+})
