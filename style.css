@@ -15,10 +15,32 @@ main {
 
 }
 
+/* Search Bar */
+
+#sb {
+
+    margin-left: 770px;
+}
+#sb *{
+
+/* display: none;*/
+
+    border: none;
+
+    padding: 9px;
+
+}
+
+#sb #si {
+
+    background: #ffffff;
+
+}
+
 
 /* Text input */
 
-.text-title {
+#text-title {
 
     width: 160px;
 
@@ -42,13 +64,13 @@ main {
 
 }
 
-.text-title:hover {
+#text-title:hover {
 
     border-color: #dadce0;
 
 }
 
-.text-title:focus {
+#text-title:focus {
 
     background: #ffffff;
 
@@ -58,7 +80,7 @@ main {
 
 /* Navigation bar */
 
-.navbar {
+#navbar {
 
     background-color: #f0f3f9;
 
@@ -74,7 +96,7 @@ main {
     
 }
 
-.navbar .github {
+#navbar #github {
 
     width: 100px;
 
@@ -84,11 +106,11 @@ main {
 
     object-fit: contain;
 
-    margin-right: 480px;
+    margin-right: 200px;
 
 }
 
-.navbar select {
+#navbar select {
 
     margin-left: 0.1px;
 
@@ -112,7 +134,8 @@ main {
 }
 /* Dropdown 1 Menu */
 
-.dropdown1 {
+#dropdown1 {
+
 
     background-color: #1a73e8;
 
@@ -126,9 +149,13 @@ main {
 
     padding: 0 25px;
 
+    position: relative;
+
 }
 
-.dropdown1 button {
+#dropdown1 button {
+
+    font-size: 17px;
 
     width: 160px;
 
@@ -152,7 +179,73 @@ main {
 
 }
 
-.dropdown1 .random-bt-content {
+#dropdown1 #Effects {
+
+    cursor: pointer;
+
+}
+
+#effects-menu {
+
+    font-size: 15px;
+
+    background: #ffffff;
+
+    display: none;
+
+    min-width: 190px;
+
+    padding: 8px 0;
+
+    position: absolute;
+
+    top: 46px;
+
+    left: 100px;
+
+    border: 1px solid #dadce0;
+
+    border-radius: 4px;
+
+    box-shadow: 0 2px 6px rgba(60, 64, 67, 0.25);
+
+    z-index: 2;
+
+}
+
+#dropdown1:hover #effects-menu,
+#dropdown1:focus-within #effects-menu {
+
+    display: block;
+
+}
+
+#effects-menu > button,
+#random-menu > button {
+
+    color: #202124;
+
+    display: block;
+
+    text-align: left;
+
+    width: 100%;
+
+    font-size: 13px;
+    padding: 8px 20px;
+
+    cursor: pointer;
+
+}
+
+#effects-menu > button:hover,
+#random-menu > button:hover {
+
+    background: #e8f0fe;
+
+}
+
+#dropdown1 #random-bt-content {
 
     background: #ffffff;
 
@@ -167,23 +260,27 @@ main {
 
 }
 
-.random-menu {
+#random-menu {
 
     position: relative;
 
 }
 
-.random-bt-content input {
+#random-bt-content input {
 
     border: 2px solid aliceblue;
 
 }
 
-.random-menu:hover .random-bt-content {
+#random-menu:hover #random-bt-content {
 
     font-size: 13px;
 
-    margin-left: 55px;
+    margin-left: 0;
+
+    left: 100%;
+
+    top: 0;
 
     box-shadow: 1px 1px 5px #e0e6f1;
 
@@ -193,7 +290,7 @@ main {
 
 }
 
-.random-bt-content input:focus {
+#random-bt-content input:focus {
 
     border-color: #6f94d9;
 
@@ -201,11 +298,53 @@ main {
 
 }
 
+
 /* Dropdown 2 */
+
+#dropdown2 {
+
+    width: 160px;
+
+    height: 20px;
+
+    margin-bottom: 2.5px;
+
+    box-sizing: border-box;
+
+    padding: 0px 20px;
+
+    color: aliceblue;
+
+    background: transparent;
+
+    border: 1px solid transparent;
+
+    border-radius: 4px;
+
+    font: 0 30px;
+
+    outline: none;
+
+    font-size: 17px;
+
+
+}
+
+
+#word-count {
+
+    color: #6f94d9;
+
+    margin-top: -6px;
+
+    font-family: Arial, sans-serif;
+
+}
+
 
 /* User text */
 
-.iotext {
+#iotext {
  
     border: 2px solid aliceblue;
 
@@ -219,13 +358,17 @@ main {
 
     margin: 0 auto;
 
-    padding: 12px white;
+    padding:  white;
+
+    padding-top: 40px;
+
+    padding-left: 40px;
 
     box-sizing: border-box;
 
 }
 
-.iotext:focus {
+#iotext:focus {
 
     border-color: #1a73e8 !important;
 
