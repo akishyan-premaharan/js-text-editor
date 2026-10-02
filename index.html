@@ -1,0 +1,140 @@
+<!DOCTYPE html> 
+
+<html lang = "en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title id = "title">New Text</title>
+        <link rel="stylesheet" href="style.css">
+        <script src="script.js" defer></script>
+    </head>
+
+    <body>
+
+        <header>
+
+            <div id = "navbar">
+
+                <input type = "text" placeholder = "Unnamed Text" id = "text-title">
+                 
+                <a href = "https://github.com/akishyan-premaharan" title = "Follow Me on Github!" target = "_blank">
+
+                   <img src = "githublogo.png" alt = "Github logo" title = "Follow Me on Github!" id = "github">
+
+                </a>
+
+
+                <div id="save-control">
+
+                    <button id="save" class="navbar-icon-button" type="button" aria-label="Save document" title="Save document">
+                        <img src="download.svg" alt="" aria-hidden="true">
+                    </button>
+
+                    <select id="save-format" aria-label="Save format" title="Save format">
+                        <option value="txt">.txt</option>
+                        <option value="rtf">.rtf</option>
+                    </select>
+
+                </div>
+
+                <button id="versions" class="navbar-icon-button" type="button" aria-label="Version history" title="Version history">
+                    <img src="history.svg" alt="" aria-hidden="true">
+                </button>
+
+            </div>
+
+            <div id = "dropdown1">
+
+                <button id = "Effects" aria-haspopup="true"> Effects</button>
+
+                <div id="effects-menu">
+
+                    <button id = "flip"> Flip </button>
+
+                    <button id = "erase"> Erase All </button>
+
+                    <div id="random-menu">
+
+                    <button id="random"> Random </button>
+
+                    <div id="random-bt-content">
+
+                        <label for="random-length">Length of Random Text</label>
+
+                        <input type="number" id="random-length" id="random-length" min="1" value="1" title = "Choose the randomly generated text's length">
+
+                        <label for="randomness">How Random? (Ex: 100 for 1/100)</label>
+
+                        <input type="number" id="randomness" id="randomness" min="1" value="1" title = "Choose how random the text will be (Ex: 100 for 1 out of 100)">
+
+                        <label for="entropy">Entropy</label>
+
+                        <input type="number" id="entropy" min="0" placeholder = "80 bits" title = "Choose how random the text will be (Ex: 100 for 1 out of 100)">
+
+                        <button id = "run-random" style = "background-color: #1a73e8; cursor: pointer;"> Run </button>
+
+                    </div>
+
+                    </div>
+
+                </div>  
+
+                
+            </div>
+
+            <br>
+             
+            <div id = "dropdown2">
+
+                <p id = "word-count"> 0 Words </p>
+
+            </div>
+
+        </header>
+
+        <main>
+            <div id="editor-container">
+
+                <div id="sb" role="search" aria-label="Find in document">
+
+                    <input type="search" id="si" placeholder="Find in document" aria-label="Find in document" />
+
+                    <span id="s-count" aria-live="polite">0/0</span>
+                    <button id="prev-sb" type="button" aria-label="Previous match" title="Previous match">&#x25B2;</button>
+                    <button id="next-sb" type="button" aria-label="Next match" title="Next match">&#x25BC;</button>
+                    <button id="close-sb" type="button" aria-label="Close find bar" title="Close">&#x2715;</button>
+
+                </div>
+
+                <textarea rows="120" cols="100" placeholder = "Insert text..." id = "iotext"></textarea>
+
+            </div>
+       
+        </main>
+
+        <dialog id="history-dialog" aria-labelledby="history-title">
+
+            <div class="history-heading">
+                <h2 id="history-title">Version History</h2>
+                <button id="close-history" type="button" aria-label="Close version history">&#x2715;</button>
+            </div>
+
+            <p id="history-empty" hidden>No saved versions yet.</p>
+            <div id="history-list"></div>
+
+        </dialog>
+
+        <footer>
+
+            <div id = "finaltext">
+               
+                <p> A text editing software programmed by Akishyan Premaharan : ) </p>
+
+            </div>
+
+
+        </footer>
+    </body>
+
+</html>
