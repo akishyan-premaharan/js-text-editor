@@ -1,8 +1,9 @@
+
 # js-text-editor - My Frontend Project
 
 
 
-https://github.com/user-attachments/assets/69ef144c-1b17-49a4-83e6-f4291601bbf1
+https://github.com/user-attachments/assets/a23beba4-73c5-44d2-9433-ee5d61378a4b
 
 
 This is my text processor, that can generate text **based on entropy/user input** along with modifying it, **powered by JavaScript** event listeners & arithmetic along side HTML/CSS **graphical interface.**
