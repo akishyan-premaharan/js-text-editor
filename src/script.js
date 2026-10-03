@@ -4,8 +4,142 @@
 
 let textArea = document.querySelector("#iotext")
 
+const findBar = document.querySelector("#sb")
+const findInput = document.querySelector("#si")
+const findCount = document.querySelector("#s-count")
+const previousMatch = document.querySelector("#prev-sb")
+const nextMatch = document.querySelector("#next-sb")
+const closeFind = document.querySelector("#close-sb")
+
+let searchMatches = []
+let activeMatch = -1
+
+function updateSearchMatches() {
+
+   const query = findInput.value
+   const text = textArea.value
+   searchMatches = []
+
+   if (query) {
+
+      const escapedQuery = query.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")
+      const matcher = new RegExp(escapedQuery, "gi")
+      let match
+
+      while ((match = matcher.exec(text)) !== null) {
+
+         searchMatches.push({ start: match.index, end: matcher.lastIndex })
+
+      }
+
+   }
+
+   if (searchMatches.length === 0) {
+
+      activeMatch = -1
+      findCount.textContent = "0/0"
+      return
+
+   }
+
+   activeMatch = Math.min(activeMatch, searchMatches.length - 1)
+   findCount.textContent = `${Math.max(activeMatch + 1, 0)}/${searchMatches.length}`
+
+}
+
+function selectSearchMatch(direction = 1) {
+
+   if (searchMatches.length === 0) return
+
+   activeMatch = (activeMatch + direction + searchMatches.length) % searchMatches.length
+   const match = searchMatches[activeMatch]
+   textArea.setSelectionRange(match.start, match.end)
+   findCount.textContent = `${activeMatch + 1}/${searchMatches.length}`
+
+}
+
+findInput.addEventListener("input", function() {
+
+   activeMatch = -1
+   updateSearchMatches()
+   selectSearchMatch(1)
+
+})
+
+textArea.addEventListener("input", updateSearchMatches)
+previousMatch.addEventListener("click", () => selectSearchMatch(-1))
+nextMatch.addEventListener("click", () => selectSearchMatch(1))
+
+closeFind.addEventListener("click", function() {
+
+   findBar.hidden = true
+   textArea.focus()
+
+})
+
+findInput.addEventListener("keydown", function(event) {
+
+   if (event.key === "Enter") {
+
+      event.preventDefault()
+      selectSearchMatch(event.shiftKey ? -1 : 1)
+
+   }
+
+   if (event.key === "Escape") {
+
+      findBar.hidden = true
+      textArea.focus()
+
+   }
+
+})
+
+document.addEventListener("keydown", function(event) {
+
+   if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "f") {
+
+      event.preventDefault()
+      findBar.hidden = false
+      findInput.focus()
+      findInput.select()
+
+   }
+
+})
+
 const titleInput = document.querySelector("#text-title")
 const pageTitle = document.querySelector("#title")
+const saveButton = document.querySelector("#save")
+const saveFormat = document.querySelector("#save-format")
+const historyButton = document.querySelector("#versions")
+const historyDialog = document.querySelector("#history-dialog")
+const historyList = document.querySelector("#history-list")
+const historyEmpty = document.querySelector("#history-empty")
+const closeHistory = document.querySelector("#close-history")
+
+const historyStorageKey = "text-editor-history"
+const historyLimit = 50
+let historyTimer
+
+function loadHistory() {
+
+   try {
+
+      const savedHistory = JSON.parse(localStorage.getItem(historyStorageKey) || "[]")
+      return Array.isArray(savedHistory)
+         ? savedHistory.filter((entry) => typeof entry.text === "string" && typeof entry.timestamp === "string")
+         : []
+
+   } catch {
+
+      return []
+
+   }
+
+}
+
+const historyEntries = loadHistory()
 
 let title = pageTitle.textContent.trim() || "New Text"
 
@@ -16,6 +150,130 @@ function updatePageTitle() {
    document.title = title
 
 }
+
+function saveSnapshot() {
+
+   const snapshot = {
+      text: textArea.value,
+      title: titleInput.value.trim() || "Untitled",
+      timestamp: new Date().toISOString()
+   }
+   const latest = historyEntries[0]
+
+   if (latest && latest.text === snapshot.text && latest.title === snapshot.title) return
+
+   historyEntries.unshift(snapshot)
+   historyEntries.length = Math.min(historyEntries.length, historyLimit)
+
+   try {
+
+      localStorage.setItem(historyStorageKey, JSON.stringify(historyEntries))
+
+   } catch {
+
+      // Keep the current session's history available if storage is unavailable.
+
+   }
+
+}
+
+function scheduleSnapshot() {
+
+   clearTimeout(historyTimer)
+   historyTimer = setTimeout(saveSnapshot, 700)
+
+}
+
+function notifyEditorChanged() {
+
+   textArea.dispatchEvent(new Event("input", { bubbles: true }))
+
+}
+
+function renderHistory() {
+
+   historyList.replaceChildren()
+   historyEmpty.hidden = historyEntries.length > 0
+
+   historyEntries.forEach((snapshot) => {
+
+      const entry = document.createElement("div")
+      const details = document.createElement("div")
+      const timestamp = document.createElement("time")
+      const preview = document.createElement("p")
+      const restore = document.createElement("button")
+      const date = new Date(snapshot.timestamp)
+
+      entry.className = "history-entry"
+      timestamp.dateTime = snapshot.timestamp
+      timestamp.textContent = Number.isNaN(date.getTime()) ? "Previous version" : date.toLocaleString()
+      preview.textContent = snapshot.text.trim().slice(0, 140) || "(Empty document)"
+      restore.type = "button"
+      restore.textContent = "Restore"
+      restore.addEventListener("click", function() {
+
+         clearTimeout(historyTimer)
+         saveSnapshot()
+         textArea.value = snapshot.text
+         titleInput.value = snapshot.title
+         updatePageTitle()
+         textArea.dispatchEvent(new Event("input", { bubbles: true }))
+         historyDialog.close()
+
+      })
+
+      details.append(timestamp, preview)
+      entry.append(details, restore)
+      historyList.append(entry)
+
+   })
+
+}
+
+function escapeRtf(text) {
+
+   return text.replace(/\\|[{}]|\r\n?|\n|\t|[^\x20-\x7e]/g, function(character) {
+
+      if (character === "\\" || character === "{" || character === "}") return `\\${character}`
+      if (character === "\r" || character === "\n") return "\\par\n"
+      if (character === "\t") return "\\tab "
+
+      const codeUnit = character.charCodeAt(0)
+      return `\\u${codeUnit > 32767 ? codeUnit - 65536 : codeUnit}?`
+
+   })
+
+}
+
+function downloadDocument(format) {
+
+   const safeTitle = (titleInput.value.trim() || "Untitled").replace(/[<>:"/\\|?*\x00-\x1f]/g, "_")
+   const isRtf = format === "rtf"
+   const contents = isRtf ? `{\\rtf1\\ansi\\deff0\n${escapeRtf(textArea.value)}\n}` : textArea.value
+   const blob = new Blob([contents], { type: isRtf ? "application/rtf" : "text/plain;charset=utf-8" })
+   const downloadUrl = URL.createObjectURL(blob)
+   const link = document.createElement("a")
+
+   link.href = downloadUrl
+   link.download = `${safeTitle}.${format}`
+   link.click()
+   setTimeout(() => URL.revokeObjectURL(downloadUrl), 1000)
+
+}
+
+saveButton.addEventListener("click", () => downloadDocument(saveFormat.value))
+
+historyButton.addEventListener("click", function() {
+
+   clearTimeout(historyTimer)
+   saveSnapshot()
+   renderHistory()
+   historyDialog.showModal()
+
+})
+
+closeHistory.addEventListener("click", () => historyDialog.close())
+textArea.addEventListener("input", scheduleSnapshot)
 
 // RANDOM WIDGET VARIABLE set up
 
@@ -47,12 +305,14 @@ document.querySelector("#erase").addEventListener("click", function() {
       if (userConfirmation) {
 
          textArea.value = ""
+         notifyEditorChanged()
 
       }
 
    } else {
 
       textArea.value = ""
+      notifyEditorChanged()
 
    }
 
@@ -61,6 +321,7 @@ document.querySelector("#erase").addEventListener("click", function() {
 document.querySelector("#flip").addEventListener("click", function() {
 
    textArea.value = textArea.value.split("").reverse().join("")
+   notifyEditorChanged()
 
 })
 
@@ -118,6 +379,7 @@ runRandom.addEventListener("click", function() {
       }
 
       textArea.value += randomGeneratedText
+      notifyEditorChanged()
 
       setTimeout(() => {
 
@@ -136,6 +398,7 @@ runRandom.addEventListener("click", function() {
       }
 
       textArea.value += randomGeneratedText
+      notifyEditorChanged()
       
       setTimeout(() => {
 
@@ -188,6 +451,7 @@ textArea.addEventListener("keydown", (e) => {
     textArea.selectionStart =
       textArea.selectionEnd =
       textArea.selectionStart + indentation.length
+      notifyEditorChanged()
 
   }
 
@@ -210,6 +474,7 @@ textArea.addEventListener("keydown", (e) => {
 
       textArea.selectionStart = Math.max(start - indentation.length, lineStart)
       textArea.selectionEnd = Math.max(end - indentation.length, lineStart)
+      notifyEditorChanged()
     }
 
   }
